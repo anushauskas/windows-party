@@ -5,7 +5,8 @@ namespace Contracts
 {
     public interface IDataService
     {
-        Task Authenticate(LoginDetails loginDetails);
+        Task<bool> Authenticate(LoginDetails loginDetails);
+        void Logout();
         Task<IList<Server>> GetServerList();
     }
 }
