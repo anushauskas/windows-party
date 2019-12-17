@@ -131,7 +131,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="images\imgbg.png" />
+    <Resource Include="images\logo.png" />
+    <Resource Include="images\logotype-testio.1.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
       <Project>{ea01b854-d01d-4070-abde-a2cbb1a5b75f}</Project>
@@ -141,6 +145,13 @@
       <Project>{e7dfbe76-d17c-4808-8dba-a7028b1f6f9a}</Project>
       <Name>DataAccesLayer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="images\img.png" />
+    <Resource Include="images\logotype-testio..png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Views\img.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
