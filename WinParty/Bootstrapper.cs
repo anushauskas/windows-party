@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Caliburn.Micro;
 using Contracts;
 using DataAccesLayer;
+using Serilog;
 using WinParty.ViewModels;
 
 namespace WinParty
@@ -26,6 +28,11 @@ namespace WinParty
         {
             _container = new CompositionContainer(new AggregateCatalog(
                 AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()));
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.File(Path.Combine(Environment.CurrentDirectory, "log-.txt"), rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+            Log.Information("Application Starting");
 
             var batch = new CompositionBatch();
             batch.AddExportedValue<IWindowManager>(new WindowManager());

@@ -5,18 +5,116 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WinParty.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DesignHeight="1426" d:DesignWidth="2134">
+    <UserControl.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="FontFamily" Value="Roboto-Light" />
+        </Style>
+    </UserControl.Resources>
+    <UserControl.Background>
+        <VisualBrush>
+            <VisualBrush.Visual>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="#FF0B0F27"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="100,400,100,100"/>
+                    <Image Opacity="0.2" 
+                           Source="/WinParty;component/images/img.png"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"/>
+
+                </Grid>
+            </VisualBrush.Visual>
+        </VisualBrush>
+    </UserControl.Background>
+    <Grid Margin="100,100,100,100">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="100" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button Grid.Row="0" Grid.Column="1" x:Name="Logout">Logout</Button>
-        <ListBox x:Name="Servers" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Stretch">
+        <Image Source="/WinParty;component/images/logotype-testio..png" 
+               Grid.Row="0"
+               Grid.Column="0"
+               Width="115"
+               Height="30"
+               HorizontalAlignment="Left"/>
+        <Button Grid.Row="0" 
+                Grid.Column="1" x:Name="Logout" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Background="Transparent"
+                BorderBrush="Transparent" Height="22">
+            <Button.Style>
+                <Style>
+                    <Style.Triggers>
+                        <Trigger Property="Button.IsMouseOver" Value="True">
+                            <Setter Property="Control.Foreground" Value="#99cc33" />
+                            <Setter Property="Path.Fill" Value="#99cc33" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <StackPanel Orientation="Horizontal">
+                <Path Data="F1M5,5C5,5 5,8 5,8 5,8 11,8 11,8 11,8 11,10 11,10 11,10 5,10 5,10 5,10 5,13 5,13 5,13 1,9 1,9 1,9 5,5 5,5z M7,1C7,1 16,1 16,1 16.6,1 17,1.4 17,2 17,2 17,16 17,16 17,16.6 16.6,17 16,17 16,17 7,17 7,17 6.4,17 6,16.6 6,16 6,16 6,13 6,13 6,13 8,13 8,13 8,13 8,15 8,15 8,15 15,15 15,15 15,15 15,3 15,3 15,3 8,3 8,3 8,3 8,5 8,5 8,5 6,5 6,5 6,5 6,2 6,2 6,1.4 6.4,1 7,1z" 
+                      Fill="#FF2F3153" 
+                      Height="18" 
+                      Width="18"/>
+                <TextBlock Foreground="#FF2F3253" 
+                           FontSize="14" 
+                           IsHyphenationEnabled="True" 
+                           LineStackingStrategy="BlockLineHeight" 
+                           LineHeight="14" 
+                           VerticalAlignment="Bottom"
+                           Margin="10,0,0,0"
+                           Text="Logout"/>
+            </StackPanel>
+        </Button>
+        <ListBox x:Name="Servers" 
+                 Grid.Row="1" 
+                 Grid.Column="0" 
+                 Background="Transparent"
+                 HorizontalContentAlignment="Stretch">
+            <ListBox.Resources>
+                <Style TargetType="TextBox">
+                    <Setter Property="FontSize" Value="16" />
+                    <Setter Property="Foreground" Value="#FF656565" />
+                </Style>
+            </ListBox.Resources>
+            <ListBox.Template>
+                <ControlTemplate>
+                    <DockPanel LastChildFill="True">
+                        <Grid DockPanel.Dock="Top" Background="WhiteSmoke">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" 
+                                       Text="SERVER" 
+                                       Margin="5,0,0,0"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" 
+                                       TextAlignment="Right" 
+                                       Text="DISTANCE" 
+                                       Margin="0,0,20,0" />
+                        </Grid>
+                        <ScrollViewer Margin="0"
+                                      Focusable="false"
+                                      DockPanel.Dock="Top">
+                            <StackPanel Margin="2"
+                                        IsItemsHost="True" />
+                        </ScrollViewer>
+                    </DockPanel>
+                </ControlTemplate>
+            </ListBox.Template>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -24,11 +122,40 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Path=Name, Mode=OneWay}" />
-                        <TextBlock Grid.Column="1" TextAlignment="Right" Text="{Binding Path=Distance, Mode=OneWay, StringFormat=' {0} km'}" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Name, Mode=OneWay}" />
+                        <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Right" Text="{Binding Path=Distance, Mode=OneWay, StringFormat=' {0} km'}" />
+                        <Border Background="#FFE5E5E5" 
+                              Height="3"
+                              Grid.Row="1"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    VerticalAlignment="Center">
+            <TextBlock Foreground="White" 
+                       FontSize="48" 
+                       LineStackingStrategy="BlockLineHeight" 
+                       LineHeight="48" 
+                       TextAlignment="Center"
+                       Text=".NET Developer Task"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Foreground="White" 
+                           FontSize="20" 
+                           LineHeight="20" 
+                           Text="by"
+                           Margin="0,3,5,0"/>
+                <Image Source="/WinParty;component/images/logotype-testio.1.png" 
+                       Height="17" 
+                       Width="67"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using Contracts;
+using Serilog;
 using WinParty.Models;
 
 namespace WinParty.ViewModels
@@ -21,6 +22,8 @@ namespace WinParty.ViewModels
             _eventAggregator = eventAggregator;
             _dataService = dataService;
             _canLogin = true;
+            _userName = "tesonet";
+            _password = "partyanimal";
         }
 
         public string UserName
@@ -61,6 +64,8 @@ namespace WinParty.ViewModels
 
         public async Task Login(string userName, string password)
         {
+            Log.Information("Logging In");
+
             CanLogin = false;
             bool success = await _dataService.Authenticate(new LoginDetails { Username = userName, Password = password });
             CanLogin = true;
