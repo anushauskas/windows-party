@@ -12,28 +12,29 @@
         </Style>
     </UserControl.Resources>
     <UserControl.Background>
-        <VisualBrush>
+        <VisualBrush Stretch="None">
             <VisualBrush.Visual>
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
                     <Border Background="#FF0B0F27"
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="100,400,100,100"/>
+                        Grid.Column="1"
+                        Grid.Row="1"/>
                     <Image Opacity="0.2" 
-                           Source="/WinParty;component/images/img.png"
-                           Grid.Row="0"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"/>
-
+                           Source="/WinParty;component/images/img.png" 
+                           Grid.ColumnSpan="2"
+                           Grid.RowSpan="2"/>
                 </Grid>
             </VisualBrush.Visual>
         </VisualBrush>
     </UserControl.Background>
-    <Grid Margin="100,100,100,100">
+    <Grid x:Name="_layout" Margin="100,100,100,100">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -55,10 +56,10 @@
                 Background="Transparent"
                 BorderBrush="Transparent" Height="22">
             <Button.Style>
-                <Style>
+                <Style TargetType="Button">
                     <Style.Triggers>
-                        <Trigger Property="Button.IsMouseOver" Value="True">
-                            <Setter Property="Control.Foreground" Value="#99cc33" />
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="TextBox.Foreground" Value="#99cc33" />
                             <Setter Property="Path.Fill" Value="#99cc33" />
                         </Trigger>
                     </Style.Triggers>
