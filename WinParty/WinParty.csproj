@@ -82,6 +82,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\LoginMessage.cs" />
+    <Compile Include="Services\VaultService.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\LogoutMessage.cs" />
     <Compile Include="ViewModels\ServersViewModel.cs" />

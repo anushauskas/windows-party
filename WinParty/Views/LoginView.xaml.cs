@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WinParty.Services;
 
 namespace WinParty.Views
 {
@@ -22,9 +23,19 @@ namespace WinParty.Views
     [Export]
     public partial class LoginView : UserControl
     {
-        public LoginView()
+        private readonly VaultService _vaultService;
+
+        [ImportingConstructor]
+        public LoginView(VaultService vaultService)
         {
+            _vaultService = vaultService;
             InitializeComponent();
+        }
+        
+        private void Password_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (sender is PasswordBox passwordBox)
+                _vaultService.Password = passwordBox.SecurePassword;
         }
     }
 }

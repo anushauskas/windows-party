@@ -11,6 +11,7 @@ using Caliburn.Micro;
 using Contracts;
 using DataAccesLayer;
 using Serilog;
+using WinParty.Services;
 using WinParty.ViewModels;
 
 namespace WinParty
@@ -37,6 +38,7 @@ namespace WinParty
             var batch = new CompositionBatch();
             batch.AddExportedValue<IWindowManager>(new WindowManager());
             batch.AddExportedValue<IEventAggregator>(new EventAggregator());
+            batch.AddExportedValue(new VaultService());
             batch.AddExportedValue<IDataService>(new DataService());
             batch.AddExportedValue(_container);
 

@@ -4,6 +4,7 @@ using Caliburn.Micro;
 using Contracts;
 using Serilog;
 using WinParty.Models;
+using WinParty.Services;
 
 namespace WinParty.ViewModels
 {
@@ -12,18 +13,27 @@ namespace WinParty.ViewModels
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IDataService _dataService;
+        private readonly VaultService _vaultService;
         private string _userName;
-        private string _password;
         private bool _canLogin;
 
         [ImportingConstructor]
-        public LoginViewModel(IEventAggregator eventAggregator, IDataService dataService)
+        public LoginViewModel(
+            IEventAggregator eventAggregator, 
+            IDataService dataService,
+            VaultService vaultService)
         {
             _eventAggregator = eventAggregator;
             _dataService = dataService;
+            _vaultService = vaultService;
+            _vaultService.PasswordChanged += _vaultService_PasswordChanged;
             _canLogin = true;
             _userName = "tesonet";
-            _password = "partyanimal";
+        }
+
+        private void _vaultService_PasswordChanged(object sender, System.EventArgs e)
+        {
+            NotifyOfPropertyChange(()=>CanLogin);
         }
 
         public string UserName
@@ -38,21 +48,9 @@ namespace WinParty.ViewModels
             }
         }
 
-        public string Password
-        {
-            get => _password;
-            set
-            {
-                if(_password == value)
-                    return;
-                _password = value;
-                NotifyOfPropertyChange(()=> Password);
-            }
-        }
-
         public bool CanLogin
         {
-            get => _canLogin && !(string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password));
+            get => _canLogin && !(string.IsNullOrEmpty(UserName)) && !string.IsNullOrEmpty(_vaultService.PlainPassword);
             set
             {
                 if(_canLogin == value)
@@ -67,7 +65,7 @@ namespace WinParty.ViewModels
             Log.Information("Logging In");
 
             CanLogin = false;
-            bool success = await _dataService.Authenticate(new LoginDetails { Username = userName, Password = password });
+            bool success = await _dataService.Authenticate(new LoginDetails { Username = userName, Password = _vaultService.PlainPassword });
             CanLogin = true;
             if (success)
                 _eventAggregator.PublishOnCurrentThread(new LoginMessage());

@@ -71,14 +71,15 @@
                 </VisualBrush>
             </TextBox.Background>
         </TextBox>
-        <TextBox x:Name="Password" 
+        <PasswordBox x:Name="Password" 
                  Grid.Row="3" Grid.Column="1" 
                  Height="58" Width="372"
                  Margin="0,0,0,18" 
                  BorderBrush="Transparent"
                  VerticalContentAlignment="Center"
-                 HorizontalContentAlignment="Center">
-            <TextBox.Background>
+                 HorizontalContentAlignment="Center" PasswordChanged="Password_PasswordChanged"
+                 >
+            <PasswordBox.Background>
                 <VisualBrush>
                     <VisualBrush.Visual>
                         <Canvas>
@@ -92,8 +93,8 @@
                         </Canvas>
                     </VisualBrush.Visual>
                 </VisualBrush>
-            </TextBox.Background>
-        </TextBox>
+            </PasswordBox.Background>
+        </PasswordBox>
         <Button Grid.Row="4" Grid.Column="1" x:Name="Login"
                 Height="58" Width="372">
             <TextBlock Foreground="White" 
